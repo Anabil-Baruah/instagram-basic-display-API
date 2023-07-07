@@ -3,12 +3,12 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Instagram Basic Display API credentials
 const clientID = process.env.INSTAGRAM_APP_ID;
 const clientSecret = process.env.INSTAGRAM_APP_SECRET;
-const redirectURI = 'http://localhost:3000/auth/instagram/callback'
+const redirectURI = 'https://cipherschools-383611.as.r.appspot.com/auth/instagram/callback'
 
 // Login route - redirects user to Instagram login
 app.get('/auth/instagram', (req, res) => {
@@ -43,7 +43,7 @@ app.get('/auth/instagram/callback', async (req, res) => {
 
     const user = userResponse.data;
 
-    // Fetch user media (posts)
+    Fetch user media (posts)
     const mediaResponse = await axios.get(`https://graph.instagram.com/${userID}/media`, {
       params: {
         fields: 'id,caption,media_type,media_url,like_count',
@@ -53,7 +53,7 @@ app.get('/auth/instagram/callback', async (req, res) => {
 
     const media = mediaResponse.data.data;
 
-    // Prepare response data
+    Prepare response data
     const responseData = {
       name: user.username,
       username: user.username,
